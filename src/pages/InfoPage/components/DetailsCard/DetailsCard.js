@@ -14,15 +14,42 @@ class DetailsCard extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-
+        if(this.props.location == null){
+            console.log('aaaa')
+        }
     }
 
 
     render() {
+
+        let iframe = '<iframe\n' +
+            '  src=\"'+ this.props.location.attr.url + '\" \n' +
+            '  allow="camera; microphone; autoplay; encrypted-media;"\n' +
+            '  width="350px"\n' +
+            '  height="500px"\n' +
+            '  style="border: none"\n' +
+            '>\n' +
+            '</iframe>';
+
+        let iframe_html = () => {
+            return {
+                __html: iframe
+            }
+        }
+
+
         return (
             <>
                 <LandingPageHeader/>
+                <div className={'details-card-container'}>
+                    <div dangerouslySetInnerHTML={ iframe_html() } />
+                    <div className={'details-card-text-wrapper'}>
+                        <h2 className="title">{this.props.location.attr.title}</h2>
+                        <span>
+                            {this.props.location.attr.text}
+                        </span>
+                    </div>
+                </div>
             </>
         )
     }
