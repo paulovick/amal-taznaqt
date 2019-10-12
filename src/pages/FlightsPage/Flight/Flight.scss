@@ -18,9 +18,15 @@
   .flight-price {
     padding: 15px 30px;
     display: flex;
+    flex-direction: column;
     align-items: center;
 
     font-size: 2.5em;
     font-weight: lighter;
+
+    .flight-min-price-label {
+      font-size: 0.4em;
+      font-weight: normal;
+    }
   }
 }

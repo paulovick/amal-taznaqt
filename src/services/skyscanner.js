@@ -9,6 +9,14 @@ const parsePlace = (placeId, responseData) => {
   return place
 }
 
+const parseDepartureDate = (quoteId, responseData) => {
+  if (!quoteId) return null
+
+  const quote = getQuoteById(quoteId, responseData)
+
+  return new Date(quote.OutboundLeg.DepartureDate)
+}
+
 const parseMinPrice = (quoteId, responseData) => {
   if (!quoteId) return null
 
@@ -16,11 +24,23 @@ const parseMinPrice = (quoteId, responseData) => {
   return quote.MinPrice
 }
 
+const parseCarriers = (quoteId, responseData) => {
+  if (!quoteId) return null
+
+  const quote = getQuoteById(quoteId, responseData)
+
+  const carriers = responseData.Carriers.filter(carrier =>
+    quote.OutboundLeg.CarrierIds.indexOf(carrier.CarrierId) !== -1)
+  return carriers
+}
+
 const parseFlight = (flight, responseData) => {
   const result = {
     origin: parsePlace(flight.OriginId, responseData),
     destination: parsePlace(flight.DestinationId, responseData),
-    minimumPrice: parseMinPrice(flight.QuoteId, responseData)
+    minimumPrice: parseMinPrice(flight.QuoteId, responseData),
+    departureDate: parseDepartureDate(flight.QuoteId, responseData),
+    carriers: parseCarriers(flight.QuoteId, responseData)
   }
 
   return result

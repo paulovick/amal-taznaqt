@@ -7,7 +7,9 @@ import { FlightAirport } from "../FlightAirport/FlightAirport"
 const Flight = ({
   origin,
   destination,
-  minimumPrice
+  minimumPrice,
+  departureDate,
+  carriers
 }) => {
   return (
     <Card>
@@ -19,7 +21,12 @@ const Flight = ({
         </div>
         <div className="flight-price">
           {minimumPrice &&
-          <>{minimumPrice.toFixed(2)} €</>
+          <>
+            <div>
+              {minimumPrice.toFixed(2)} €
+            </div>
+            <div className="flight-min-price-label">Precio mínimo</div>
+          </>
           }
         </div>
       </CardBody>
