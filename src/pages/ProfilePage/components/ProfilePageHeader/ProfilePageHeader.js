@@ -1,9 +1,8 @@
-import React from "react";
+import React from "react"
 
-// reactstrap components
 import { Container } from "reactstrap";
 
-// core components
+import './ProfilePageHeader.scss'
 
 function ProfilePageHeader() {
   let pageHeader = React.createRef();
@@ -36,28 +35,14 @@ function ProfilePageHeader() {
         />
         <Container>
           <div className="photo-container">
-            <img alt="..." src={require("assets/img/ryan.jpg")}/>
+            <img alt="..." src={require("assets/img/ryan.jpg")} className="photo rounded-circle img-fluid img-raised" />
           </div>
           <h3 className="title">Ryan Scheinder</h3>
           <p className="category">Photographer</p>
-          <div className="content">
-            <div className="social-description">
-              <h2>26</h2>
-              <p>Comments</p>
-            </div>
-            <div className="social-description">
-              <h2>26</h2>
-              <p>Comments</p>
-            </div>
-            <div className="social-description">
-              <h2>48</h2>
-              <p>Bookmarks</p>
-            </div>
-          </div>
         </Container>
       </div>
     </>
   );
 }
 
-export default ProfilePageHeader;
+export { ProfilePageHeader }
