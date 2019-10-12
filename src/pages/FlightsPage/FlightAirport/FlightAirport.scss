@@ -1,0 +1,13 @@
+.flight-airport {
+  display: inline-block;
+  vertical-align: top;
+
+  .flight-airport-iata {
+    font-size: 3em;
+    font-weight: bold;
+  }
+
+  .flight-airport-name {
+    color: rgba(0, 0, 0, 0.6)
+  }
+}
