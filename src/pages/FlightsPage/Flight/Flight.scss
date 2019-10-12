@@ -1,15 +1,23 @@
 
+.flights-separator {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.05);
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
 .flight {
   display: flex;
 
   .flight-details {
+    padding-left: 1em;
     flex: 1;
 
     .flight-route-separator {
       font-size: 3em;
       font-weight: bold;
-      margin-left: 2em;
-      margin-right: 2em;
+      margin-left: 1.5em;
+      margin-right: 1.5em;
 
       display: inline-block;
     }
