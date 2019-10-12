@@ -15,6 +15,7 @@ import { ProfilePage } from "./pages/ProfilePage/ProfilePage"
 import { GroupsPage } from "./pages/GroupsPage/GroupsPage"
 import { CostsPage } from "./pages/CostsPage/CostsPage"
 import { DetailsCard } from "./pages/InfoPage/components/DetailsCard/DetailsCard"
+import { LoginPage } from "./pages/LoginPage/LoginPage"
 
 
 class App extends React.Component {
@@ -31,6 +32,7 @@ class App extends React.Component {
             <Route path="/groups" component={GroupsPage} />
             <Route path="/flights" component={FlightsPage} />
             <Route path="/costs" component={CostsPage} />
+            <Route path="/login" component={LoginPage} />
 
             {/* Public */}
             <Route path="/register" component={RegisterPage} />
