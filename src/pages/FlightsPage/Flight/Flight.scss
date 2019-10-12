@@ -2,7 +2,7 @@
 .flight {
   display: flex;
 
-  .flight-route {
+  .flight-details {
     flex: 1;
 
     .flight-route-separator {
@@ -13,13 +13,33 @@
 
       display: inline-block;
     }
+
+    .flight-date-time {
+      flex: 1;
+      margin-top: 0.8em;
+      font-size: 1.5em;
+
+      span {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  .flight-carriers {
+    width: 10em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .flight-price {
     padding: 15px 30px;
+    align-self: stretch;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 10em;
 
     font-size: 2.5em;
     font-weight: lighter;

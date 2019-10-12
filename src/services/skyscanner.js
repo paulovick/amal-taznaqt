@@ -10,28 +10,22 @@ const parsePlace = (placeId, responseData) => {
 }
 
 const parseDepartureDate = (quoteId, responseData) => {
-  if (!quoteId) return null
-
   const quote = getQuoteById(quoteId, responseData)
 
   return new Date(quote.OutboundLeg.DepartureDate)
 }
 
 const parseMinPrice = (quoteId, responseData) => {
-  if (!quoteId) return null
-
   const quote = getQuoteById(quoteId, responseData)
   return quote.MinPrice
 }
 
-const parseCarriers = (quoteId, responseData) => {
-  if (!quoteId) return null
-
+const parseCarrier = (quoteId, responseData) => {
   const quote = getQuoteById(quoteId, responseData)
 
-  const carriers = responseData.Carriers.filter(carrier =>
-    quote.OutboundLeg.CarrierIds.indexOf(carrier.CarrierId) !== -1)
-  return carriers
+  const carrier = responseData.Carriers.filter(carrier =>
+    quote.OutboundLeg.CarrierIds.indexOf(carrier.CarrierId) !== -1)[0]
+  return carrier
 }
 
 const parseFlight = (flight, responseData) => {
@@ -40,14 +34,14 @@ const parseFlight = (flight, responseData) => {
     destination: parsePlace(flight.DestinationId, responseData),
     minimumPrice: parseMinPrice(flight.QuoteId, responseData),
     departureDate: parseDepartureDate(flight.QuoteId, responseData),
-    carriers: parseCarriers(flight.QuoteId, responseData)
+    carrier: parseCarrier(flight.QuoteId, responseData)
   }
 
   return result
 }
 
 const createFlightsFromRoute = (route) => {
-  if (!route.QuoteIds) return [route]
+  if (!route.QuoteIds) return null
 
   return route.QuoteIds.map(quoteId => {
     let routeModified = { ...route }
@@ -70,7 +64,9 @@ const fetchFlights = async (from, to, departureDate) => {
   if (response.status === 200) {
     const responseData = response.data
 
-    const flightsData = responseData.Routes.map(route => createFlightsFromRoute(route)).flat()
+    const flightsData = responseData.Routes.map(route =>
+      createFlightsFromRoute(route)
+    ).filter(flights => flights !== null).flat()
     console.log(flightsData)
 
     const flights = flightsData.map(flight => parseFlight(flight, responseData))
