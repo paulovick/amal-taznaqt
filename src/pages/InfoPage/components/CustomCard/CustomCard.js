@@ -28,7 +28,7 @@ class CustomCard extends React.Component {
     }
 
     showCardDetails(e){
-        this.props.attr.props.history.push({pathname: '/info/details', attr: this.props})
+        this.props.attr.props.history.push({pathname: '/info/details', attr: this.props.attr})
     }
 
     render() {
