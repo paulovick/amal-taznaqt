@@ -3,15 +3,13 @@ import { Button, Col, Row, Container } from "reactstrap"
 import { Redirect } from "react-router"
 import './Volunteer.scss'
 
-const Volunteer = ({ volunteerName, volunteerCity, volunteerImg }) => {
-    const [redirect, setRedirect] = useState(false)
+const Volunteer = ({ volunteerName, volunteerCity, volunteerImg, history}) => {
 
     const handleOnButtonClick = () => {
-        setRedirect(true)
+        history.push({pathname: '/profile', attr:{volunteerName, volunteerCity, volunteerImg, history}})
     }
 
-    if (redirect)
-        return <Redirect to="/profile" />
+
 
     return (
 

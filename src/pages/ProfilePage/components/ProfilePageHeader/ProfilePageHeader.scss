@@ -1,8 +1,11 @@
 .photo-container {
   .photo {
+    height: 15em;
     width: 15em;
+    object-fit: cover;
   }
 }
+
 
 .page-header {
   .title {

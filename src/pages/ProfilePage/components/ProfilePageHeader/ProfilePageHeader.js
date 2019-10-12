@@ -4,7 +4,8 @@ import { Container } from "reactstrap";
 
 import './ProfilePageHeader.scss'
 
-function ProfilePageHeader() {
+function ProfilePageHeader(props) {
+    console.log(props)
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -35,10 +36,10 @@ function ProfilePageHeader() {
         />
         <Container>
           <div className="photo-container">
-            <img alt="..." src={require("assets/img/ryan.jpg")} className="photo rounded-circle img-fluid img-raised" />
+            <img alt="..." src={props.volunteerImg} className="photo rounded-circle img-fluid img-raised" />
           </div>
-          <h3 className="title">Ryan Scheinder</h3>
-          <p className="category">Photographer</p>
+          <h3 className="title">{props.volunteerName}</h3>
+          <p className="category">{props.volunteerCity}</p>
         </Container>
       </div>
     </>
