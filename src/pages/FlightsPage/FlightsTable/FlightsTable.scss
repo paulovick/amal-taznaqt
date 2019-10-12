@@ -1,0 +1,46 @@
+
+.flights-table {
+
+  .table-header {
+    display: flex;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.2em;
+    font-weight: bold;
+
+    .header-airport {
+      width: 250px;
+      display: flex;
+      padding: 0.5em 1em;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-day {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .table-content {
+
+    .airline-row {
+      display: flex;
+
+      .airline {
+        width: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .day {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}

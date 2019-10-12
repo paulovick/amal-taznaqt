@@ -1,4 +1,5 @@
 import axios from 'axios'
+import moment from "moment"
 
 const getQuoteById = (quoteId, responseData) => {
   return responseData.Quotes.filter(quote => quote.QuoteId === quoteId)[0]
@@ -50,10 +51,10 @@ const createFlightsFromRoute = (route) => {
   })
 }
 
-const fetchFlights = async (from, to, departureDate) => {
+const fetchFlightsForSpecificMonth = async (from, to, month) => {
   const response = await axios.get(
     `https://www.skyscanner.net/g/chiron/api/v1/flights/browse/browseroutes/` +
-    `v1.0/ES/EUR/es-ES/${from}/${to}/${departureDate}`,
+    `v1.0/ES/EUR/es-ES/${from}/${to}/${month}`,
     {
       headers: {
         'api-key': 'skyscanner-hackupc2019'
@@ -67,11 +68,33 @@ const fetchFlights = async (from, to, departureDate) => {
     const flightsData = responseData.Routes.map(route =>
       createFlightsFromRoute(route)
     ).filter(flights => flights !== null).flat()
-    console.log(flightsData)
 
     const flights = flightsData.map(flight => parseFlight(flight, responseData))
     return flights
   }
+}
+
+const getMonthsForDates = (days) => {
+  let result = []
+
+  for(let i = 0; i < days.length; i++) {
+    const month = moment(days[i]).format("YYYY-MM")
+    if (result.indexOf(month) === -1) result.push(month)
+  }
+
+  return result
+}
+
+const fetchFlights = async (from, to, departureDates) => {
+  let result = []
+
+  const months = getMonthsForDates(departureDates)
+  for(let i = 0; i < months.length; i++) {
+    const flights = await fetchFlightsForSpecificMonth(from, to, months[i])
+    result = [...result, ...flights]
+  }
+
+  return result
 }
 
 export { fetchFlights }

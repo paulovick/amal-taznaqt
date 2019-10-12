@@ -1,31 +1,41 @@
 import React from 'react'
-import { ReactComponent as VuelingLogo } from "./VuelingLogo.svg"
-import { ReactComponent as RyanairLogo } from "./RyanairLogo.svg"
-import { ReactComponent as AirArabiaLogo } from "./AirArabiaLogo.svg"
+
+import VuelingLogo from './VuelingLogo'
+import RyanairLogo from './RyanairLogo'
+import AirArabiaLogo from './AirArabiaLogo'
+import LaudamotionLogo from './LaudamotionLogo'
+import IberiaLogo from './IberiaLogo'
+import RoyalAirLogo from './RoyalAirLogo'
 
 import './AirlineLogo.scss'
 
-const getLogoComponent = (airline) => {
+const getLogoComponent = (airline, props) => {
   switch (airline) {
     case "Vueling Airlines":
-      return VuelingLogo
+      return <VuelingLogo {...props} />
     case "Ryanair":
-      return RyanairLogo
+      return <RyanairLogo {...props} />
     case "Air Arabia Maroc":
-      return AirArabiaLogo
+      return <AirArabiaLogo {...props} />
+    case "Laudamotion":
+      return <LaudamotionLogo {...props} />
+    case "Iberia":
+      return <IberiaLogo {...props} />
+    case "Royal Air Maroc":
+      return <RoyalAirLogo {...props} />
     default:
       return null
   }
 }
 
 const AirlineLogo = ({ airline }) => {
-  const Logo = getLogoComponent(airline)
+  const Logo = getLogoComponent(airline, {
+    width: 100,
+  })
 
   return (
     <div className="airline-logo">
-      {Logo &&
-        <Logo />
-      }
+      {Logo}
     </div>
   )
 }

@@ -1,8 +1,7 @@
 .airline-logo {
-  height: 128px;
-  width: 128px;
+  height: 10em;
 
-  svg {
-    fill: black;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

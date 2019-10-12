@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import {CustomCard} from "./components/CustomCard/CustomCard";
 import LandingPageHeader from "../LandingPage/components/LandingPageHeader/LandingPageHeader";
 
