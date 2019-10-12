@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import './DetailsCard.scss'
 import LandingPageHeader from "../../../LandingPage/components/LandingPageHeader/LandingPageHeader";
 
@@ -7,23 +7,14 @@ class DetailsCard extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
-
         this.state = {}
-
-    }
-
-    componentDidMount() {
-        if(this.props.location == null){
-            console.log('aaaa')
-        }
     }
 
 
     render() {
 
         let iframe = '<iframe\n' +
-            '  src=\"'+ this.props.location.attr.url + '\" \n' +
+            '  src="'+ this.props.location.attr.url + '" \n' +
             '  allow="camera; microphone; autoplay; encrypted-media;"\n' +
             '  width="350px"\n' +
             '  height="500px"\n' +

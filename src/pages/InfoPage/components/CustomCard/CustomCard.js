@@ -1,9 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import './CustomCard.scss'
 
 import{
     Card,
-    CardImg,
     CardBody,
     CardTitle,
     CardText,
@@ -15,16 +14,7 @@ class CustomCard extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
-
         this.state = {}
-
-    }
-
-    componentDidMount() {
-        //window.VIDEOASK_EMBED_CONFIG.url = this.props.urlVideoAsk;
-        console.log(this.props)
-
     }
 
     showCardDetails(e){
