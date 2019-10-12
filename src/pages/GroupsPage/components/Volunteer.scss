@@ -1,7 +1,12 @@
 .volunteer{
   .photo-container {
     .photo {
-      width: 15em;
+      width: 10em;
+      height: 10em;
+      object-fit: cover
     }
   }
+
+  text-align: center;
 }
+
