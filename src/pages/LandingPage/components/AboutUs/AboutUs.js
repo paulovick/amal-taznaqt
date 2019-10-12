@@ -21,7 +21,7 @@ const AboutUs = () => {
                 className="image-container image-left"
                 style={{
                   backgroundImage:
-                    "url(" + require("assets/img/login.jpg") + ")"
+                    "url(" + require("assets/img/landing-detail-1.jpg") + ")"
                 }}
               >
                 <p className="blockquote blockquote-info">
@@ -36,7 +36,7 @@ const AboutUs = () => {
                 className="image-container"
                 style={{
                   backgroundImage:
-                    "url(" + require("assets/img/bg3.jpg") + ")"
+                    "url(" + require("assets/img/landing-detail-3.jpg") + ")"
                 }}
               />
             </Col>
@@ -45,7 +45,7 @@ const AboutUs = () => {
                 className="image-container image-right"
                 style={{
                   backgroundImage:
-                    "url(" + require("assets/img/bg1.jpg") + ")"
+                    "url(" + require("assets/img/landing-detail-2.jpg") + ")"
                 }}
               />
               <h3>
