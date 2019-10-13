@@ -1,14 +1,20 @@
 import React from 'react'
+import moment from "moment"
 
 const AirlineDayCell = ({flights}) => {
   return (
-    <div className={`day ${flights.length === 0 ? 'empty' : ''}`}>
+    <div className={`airline-cell ${flights.length === 0 ? 'empty' : ''}`}>
       {flights.map(flight => {
         return (
           <div
-            key={`airline-day-cell_${flight.origin.IataCode}-${flight.destination.IataCode}-${flight.departureDate}`}
+            key={`airline-cell-flight_${flight.origin.IataCode}-${flight.destination.IataCode}-${flight.departureDate}`}
+            className="airline-cell-flight"
           >
-            {flight.origin.IataCode}
+            <div className="airline-cell-flight-left">
+              <div>{flight.origin.IataCode}-{flight.destination.IataCode}</div>
+              <div>{moment(flight.departureDate).format("hh:mm")}</div>
+            </div>
+            <div className="price">{flight.minimumPrice} €</div>
           </div>
         )
       })}

@@ -20,6 +20,10 @@ class FlightsPage extends Component {
     returnFlights: []
   }
 
+  componentDidMount() {
+    this.updateResults({})
+  }
+
   resetResults = () => {
     this.setState({
       outboundFlights: [],
