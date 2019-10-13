@@ -2,12 +2,14 @@ import React from 'react'
 
 const AirlineDayCell = ({flights}) => {
   return (
-    <div className="day">
+    <div className={`day ${flights.length === 0 ? 'empty' : ''}`}>
       {flights.map(flight => {
         return (
           <div
             key={`airline-day-cell_${flight.origin.IataCode}-${flight.destination.IataCode}-${flight.departureDate}`}
-          >{flight.origin.IataCode}</div>
+          >
+            {flight.origin.IataCode}
+          </div>
         )
       })}
     </div>
