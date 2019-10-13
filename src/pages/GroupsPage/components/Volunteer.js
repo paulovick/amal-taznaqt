@@ -18,12 +18,12 @@ const Volunteer = ({ volunteerName, volunteerCity, volunteerImg, history}) => {
                 <div className="photo-container">
                     <img alt="..." src={volunteerImg} className="photo rounded-circle img-fluid img-raised" />
                 </div>
-                <h4 className="title">{volunteerName}</h4>
+                <h4 className="title" style={{height: 100}}>{volunteerName}</h4>
                 <p className="category">{volunteerCity}</p>
 
 
 
-    <Button color="info" outline={true} size="lg" onClick={handleOnButtonClick}>Ver perfil!</Button>
+    <Button style={{color:'#437336'}} outline={true} size="lg" onClick={handleOnButtonClick}>Ver perfil!</Button>
 
     </Col>
 )

@@ -43,6 +43,7 @@ class CustomNavbar extends React.Component {
                         >
                             <Nav navbar>
                                 {userIsLogged ? null : <CustomNavItem attr={{href:'/login', name:'Log in', icon:'icon'}}/>}
+                                {userIsLogged ? <CustomNavItem attr={{href:'/logout', name:'Log out', icon:'icon'}}/> : null}
                             </Nav>
                         </Collapse>
                     </Container>

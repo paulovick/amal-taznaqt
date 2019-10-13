@@ -3,6 +3,7 @@ import React from "react"
 import { Container } from "reactstrap";
 
 import './ProfilePageHeader.scss'
+import {CustomNavbar} from "../../../LandingPage/components/Navbars/CustomNavbar";
 
 function ProfilePageHeader(props) {
     console.log(props)
@@ -27,6 +28,7 @@ function ProfilePageHeader(props) {
                 className="page-header clear-filter page-header-small"
                 filter-color="blue"
             >
+                <CustomNavbar {...props}/>
                 <div
                     className="page-header-image"
                     style={{
