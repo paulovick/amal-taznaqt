@@ -7,18 +7,17 @@ import "./FlightsPage.scss"
 import { FlightsTable } from "./FlightsTable/FlightsTable"
 import Datetime from "react-datetime"
 import LandingPageHeader from "../LandingPage/components/LandingPageHeader/LandingPageHeader"
+import moment from "moment"
 
 class FlightsPage extends Component {
   state = {
     origin: 'BCN-sky',
-    outboundDays: ["2019-11-10", "2019-11-11", "2019-11-12", "2019-11-13", "2019-11-14", "2019-11-15"],
+    outboundStartDay: moment().add(1, 'days').format("YYYY-MM-DD"),
+    outboundEndDay: moment().add(6, 'days').format("YYYY-MM-DD"),
     outboundFlights: [],
-    returnDays: ["2019-11-28", "2019-11-29", "2019-11-30", "2019-12-01"],
+    returnStartDay: moment().add(8, 'days').format("YYYY-MM-DD"),
+    returnEndDay: moment().add(14, 'days').format("YYYY-MM-DD"),
     returnFlights: []
-  }
-
-  componentDidMount() {
-    this.updateResults(this.state.origin)
   }
 
   resetResults = () => {
@@ -28,21 +27,48 @@ class FlightsPage extends Component {
     })
   }
 
-  updateResults = (origin) => {
-    this.setState({ origin })
-    fetchFlights(origin, 'MA-sky', this.state.outboundDays)
+  updateResults = ({
+    origin = this.state.origin,
+    outboundStartDay = this.state.outboundStartDay,
+    outboundEndDay = this.state.outboundEndDay,
+    returnStartDay = this.state.returnStartDay,
+    returnEndDay = this.state.returnEndDay
+  }) => {
+    this.setState({
+      origin,
+      outboundStartDay,
+      outboundEndDay,
+      returnStartDay,
+      returnEndDay
+    })
+
+    console.log(`updating (${outboundStartDay}, ${outboundEndDay}, ` +
+      `${returnStartDay}, ${returnEndDay}`)
+
+    const outboundDays = this.calculateDayRange(outboundStartDay, outboundEndDay)
+    const returnDays = this.calculateDayRange(returnStartDay, returnEndDay)
+
+    fetchFlights(origin, 'MA-sky', outboundDays)
       .then(outboundFlights => {
         this.setState({ outboundFlights })
       })
-    fetchFlights('MA-sky', origin, this.state.returnDays)
+    fetchFlights('MA-sky', origin, returnDays)
       .then(returnFlights => {
         this.setState({ returnFlights })
-      })
+    })
   }
 
   handleOnOriginChange = (newOrigin) => {
     this.resetResults()
-    this.updateResults(newOrigin)
+    this.updateResults({ origin: newOrigin })
+  }
+
+  handleOnDateChange = (property, newValue) => {
+    const value = moment(newValue).format("YYYY-MM-DD")
+    console.log('setting ' + property + ' with value ' + value)
+    this.updateResults({
+      [property]: value
+    })
   }
 
   getCheapestFlight = (flights) => {
@@ -52,7 +78,30 @@ class FlightsPage extends Component {
     )[0]
   }
 
+  calculateDayRange = (startDateStr, endDateStr) => {
+    if (!startDateStr || !endDateStr) return []
+
+    const startDate = new Date(startDateStr)
+    const endDate = new Date(endDateStr)
+
+    let dates = [],
+      currentDate = startDate,
+      addDays = function(days) {
+        let date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+      };
+    while (currentDate <= endDate) {
+      dates.push(currentDate);
+      currentDate = addDays.call(currentDate, 1);
+    }
+    return dates.map(date => moment(date).format("YYYY-MM-DD"));
+  }
+
   render() {
+    const outboundDays = this.calculateDayRange(this.state.outboundStartDay, this.state.outboundEndDay)
+    const returnDays = this.calculateDayRange(this.state.returnStartDay, this.state.returnEndDay)
+
     const cheapestOutboundFlight = this.getCheapestFlight(this.state.outboundFlights)
     const cheapestReturnFlight = this.getCheapestFlight(this.state.returnFlights)
 
@@ -90,11 +139,15 @@ class FlightsPage extends Component {
                     id="outboundStartDate"
                     className="flights-page-datepicker"
                     timeFormat={false}
+                    value={this.state.outboundStartDay}
+                    onChange={newDate => this.handleOnDateChange('outboundStartDate', newDate)}
                   />
                   <Datetime
                     id="outboundEndDate"
                     className="flights-page-datepicker"
                     timeFormat={false}
+                    value={this.state.outboundEndDay}
+                    onChange={newDate => this.handleOnDateChange('outboundEndDate', newDate)}
                   />
                 </div>
               </FormGroup>
@@ -105,11 +158,15 @@ class FlightsPage extends Component {
                     id="returnStartDate"
                     className="flights-page-datepicker"
                     timeFormat={false}
+                    value={this.state.returnStartDay}
+                    onChange={newDate => this.handleOnDateChange('returnStartDate', newDate)}
                   />
                   <Datetime
                     id="returnEndDate"
                     className="flights-page-datepicker"
                     timeFormat={false}
+                    value={this.state.returnEndDay}
+                    onChange={newDate => this.handleOnDateChange('returnEndDate', newDate)}
                   />
                 </div>
               </FormGroup>
@@ -128,10 +185,14 @@ class FlightsPage extends Component {
           }
 
           <h3>Vuelos de ida</h3>
-          <FlightsTable tableKey="outbound-flights" days={this.state.outboundDays} flights={this.state.outboundFlights} />
+          {outboundDays && outboundDays.length &&
+            <FlightsTable tableKey="outbound-flights" days={outboundDays} flights={this.state.outboundFlights}/>
+          }
 
           <h3>Vuelos de vuelta</h3>
-          <FlightsTable tableKey="return-flights" days={this.state.returnDays} flights={this.state.returnFlights} />
+          {returnDays && returnDays.length &&
+            <FlightsTable tableKey="return-flights" days={returnDays} flights={this.state.returnFlights}/>
+          }
 
         </Container>
       </>
