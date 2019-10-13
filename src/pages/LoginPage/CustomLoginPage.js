@@ -1,31 +1,25 @@
-import React, { Component } from "react";
-import LandingPageHeader from "../LandingPage/components/LandingPageHeader/LandingPageHeader";
+import React from "react";
 import './CustomLoginPage.scss'
 import {
     Button,
     Card,
     CardBody, CardFooter,
-    CardHeader,
     Col,
     Container,
     Form, Input,
     InputGroup,
-    InputGroupAddon,
-    InputGroupText
 } from "reactstrap";
+import { login } from "../../services/userService"
 
 
 class CustomLoginPage extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
-
         this.state = {
             user:'',
             password:'',
         }
-
     }
 
     componentDidMount() {
@@ -33,8 +27,9 @@ class CustomLoginPage extends React.Component {
     }
 
     goToHomeReg(e){
-        if (this.state.user == 'marc' && this.state.password == 'marc') {
-            this.props.history.push({pathname: '/', attr:{history:this.props.history, login:true}})
+        if (this.state.user === 'marc' && this.state.password === 'marc') {
+            login(this.state.user)
+            this.props.history.push({pathname: '/', attr:{history:this.props.history}})
         }
     }
 

@@ -6,6 +6,7 @@ import { Col, Container, Form, FormGroup, Input, Row } from "reactstrap"
 import "./FlightsPage.scss"
 import { FlightsTable } from "./FlightsTable/FlightsTable"
 import Datetime from "react-datetime"
+import LandingPageHeader from "../LandingPage/components/LandingPageHeader/LandingPageHeader"
 
 class FlightsPage extends Component {
   state = {
@@ -56,81 +57,84 @@ class FlightsPage extends Component {
     const cheapestReturnFlight = this.getCheapestFlight(this.state.returnFlights)
 
     return (
-      <Container className="flights-page">
-        <Row>
-          <Col className="ml-auto mr-auto text-center" md="8">
-            <h2 className="title">Vuelos</h2>
-          </Col>
-        </Row>
+      <>
+        <LandingPageHeader {...this.props}/>
+        <Container className="flights-page">
+          <Row>
+            <Col className="ml-auto mr-auto text-center" md="8">
+              <h2 className="title">Vuelos</h2>
+            </Col>
+          </Row>
 
-        <Form className="form-flights">
-          <FormGroup>
-            <label htmlFor="originSelect" className="outbound-from-label">Salida des de</label>
-            <Input
-              id="originSelect"
-              type="select"
-              className="origin-airport-select"
-              onChange={e => this.handleOnOriginChange(e.target.value)}
-              value={this.state.origin}
-            >
-              <option value="BCN-sky">Barcelona - El Prat</option>
-              <option value="MAD-sky">Madrid - Barajas</option>
-              <option value="VLC-sky">Valencia - Manises</option>
-              <option value="SVQ-sky">Sevilla</option>
-            </Input>
-          </FormGroup>
-          <div className="dates-container">
-            <FormGroup className="dates-period-container">
-              <label htmlFor="outboundStartDate">Selecciona un rango de fechas para la salida</label>
-              <div className="flights-page-dates">
-                <Datetime
-                  id="outboundStartDate"
-                  className="flights-page-datepicker"
-                  timeFormat={false}
-                />
-                <Datetime
-                  id="outboundEndDate"
-                  className="flights-page-datepicker"
-                  timeFormat={false}
-                />
-              </div>
+          <Form className="form-flights">
+            <FormGroup>
+              <label htmlFor="originSelect" className="outbound-from-label">Salida des de</label>
+              <Input
+                id="originSelect"
+                type="select"
+                className="origin-airport-select"
+                onChange={e => this.handleOnOriginChange(e.target.value)}
+                value={this.state.origin}
+              >
+                <option value="BCN-sky">Barcelona - El Prat</option>
+                <option value="MAD-sky">Madrid - Barajas</option>
+                <option value="VLC-sky">Valencia - Manises</option>
+                <option value="SVQ-sky">Sevilla</option>
+              </Input>
             </FormGroup>
-            <FormGroup className="dates-period-container">
-              <label htmlFor="returnStartDate">Selecciona un rango de fechas para la salida</label>
-              <div className="flights-page-dates">
-                <Datetime
-                  id="returnStartDate"
-                  className="flights-page-datepicker"
-                  timeFormat={false}
-                />
-                <Datetime
-                  id="returnEndDate"
-                  className="flights-page-datepicker"
-                  timeFormat={false}
-                />
-              </div>
-            </FormGroup>
-          </div>
-        </Form>
+            <div className="dates-container">
+              <FormGroup className="dates-period-container">
+                <label htmlFor="outboundStartDate">Selecciona un rango de fechas para la salida</label>
+                <div className="flights-page-dates">
+                  <Datetime
+                    id="outboundStartDate"
+                    className="flights-page-datepicker"
+                    timeFormat={false}
+                  />
+                  <Datetime
+                    id="outboundEndDate"
+                    className="flights-page-datepicker"
+                    timeFormat={false}
+                  />
+                </div>
+              </FormGroup>
+              <FormGroup className="dates-period-container">
+                <label htmlFor="returnStartDate">Selecciona un rango de fechas para la salida</label>
+                <div className="flights-page-dates">
+                  <Datetime
+                    id="returnStartDate"
+                    className="flights-page-datepicker"
+                    timeFormat={false}
+                  />
+                  <Datetime
+                    id="returnEndDate"
+                    className="flights-page-datepicker"
+                    timeFormat={false}
+                  />
+                </div>
+              </FormGroup>
+            </div>
+          </Form>
 
-        <h3>Ida y vuelta más baratos</h3>
-        {cheapestOutboundFlight && !cheapestReturnFlight &&
-          <Flight outboundFlight={cheapestOutboundFlight} />
-        }
-        {cheapestOutboundFlight && cheapestReturnFlight &&
-          <Flight outboundFlight={cheapestOutboundFlight} returnFlight={cheapestReturnFlight}/>
-        }
-        {!cheapestOutboundFlight && cheapestReturnFlight &&
-          <Flight outboundFlight={cheapestReturnFlight} />
-        }
+          <h3>Ida y vuelta más baratos</h3>
+          {cheapestOutboundFlight && !cheapestReturnFlight &&
+            <Flight outboundFlight={cheapestOutboundFlight} />
+          }
+          {cheapestOutboundFlight && cheapestReturnFlight &&
+            <Flight outboundFlight={cheapestOutboundFlight} returnFlight={cheapestReturnFlight}/>
+          }
+          {!cheapestOutboundFlight && cheapestReturnFlight &&
+            <Flight outboundFlight={cheapestReturnFlight} />
+          }
 
-        <h3>Vuelos de ida</h3>
-        <FlightsTable tableKey="outbound-flights" days={this.state.outboundDays} flights={this.state.outboundFlights} />
+          <h3>Vuelos de ida</h3>
+          <FlightsTable tableKey="outbound-flights" days={this.state.outboundDays} flights={this.state.outboundFlights} />
 
-        <h3>Vuelos de vuelta</h3>
-        <FlightsTable tableKey="return-flights" days={this.state.returnDays} flights={this.state.returnFlights} />
+          <h3>Vuelos de vuelta</h3>
+          <FlightsTable tableKey="return-flights" days={this.state.returnDays} flights={this.state.returnFlights} />
 
-      </Container>
+        </Container>
+      </>
     )
   }
 }

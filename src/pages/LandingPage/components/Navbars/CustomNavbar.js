@@ -1,59 +1,23 @@
-import React, { Component } from "react";
-//import './CustomNavbars.scss';
+import React from "react";
 import {
-    Button,
     Collapse,
-    Container, DropdownItem, DropdownMenu, DropdownToggle,
+    Container,
     Nav,
-    Navbar,
-    NavbarBrand,
-    NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    UncontrolledTooltip
+    Navbar
 } from "reactstrap";
 
 import {CustomNavItem} from "./components/CustomNavItem/CustomNavItem";
+import { isLogged } from "../../../../services/userService"
 
 
 class CustomNavbar extends React.Component {
     constructor(props) {
         super(props);
-
-        console.log(props)
-
-        this.state = {
-            login:false
-        }
-
     }
-
-    componentDidMount() {
-        console.log(this.props)
-        if(this.props.location && this.props.location.attr && this.props.location.attr.login){
-            this.setState({login:true})
-        }
-    }
-
-    goTo(e, route){
-        console.log(route)
-        console.log(this.props)
-        if (this.props.attr) {
-            console.log('loloo')
-            console.log(this.props.attr)
-            this.props.attr.history.push({pathname: route, history:this.props.attr.history})
-        }
-        else {
-            console.log('lolaaa')
-
-            this.props.history.push({pathname: route, history:this.props.history})
-        }
-
-        //this.props.history.push({pathname: route, props:this.props.history})
-    }
-
 
     render() {
+
+        const userIsLogged = isLogged()
 
         return (
             <div>
@@ -67,9 +31,9 @@ class CustomNavbar extends React.Component {
                             <Nav navbar>
                                 <CustomNavItem attr={{href:'/home', name:'Home', icon:'icon'}}/>
                                 <CustomNavItem attr={{href:'/info', name:'Info', icon:'icon'}}/>
-                                {this.state.login ? <CustomNavItem attr={{href:'/flights', name:'Vols', icon:'icon'}}/> : null}
-                                {this.state.login ? <CustomNavItem attr={{href:'/profile', name:'Perfil', icon:'icon'}}/> : null}
-                                {this.state.login ? <CustomNavItem attr={{href:'/groups', name:'Equip', icon:'icon'}}/> : null}
+                                {userIsLogged ? <CustomNavItem attr={{href:'/flights', name:'Vols', icon:'icon'}}/> : null}
+                                {userIsLogged ? <CustomNavItem attr={{href:'/profile', name:'Perfil', icon:'icon'}}/> : null}
+                                {userIsLogged ? <CustomNavItem attr={{href:'/groups', name:'Equip', icon:'icon'}}/> : null}
 
                             </Nav>
                         </Collapse>
@@ -78,7 +42,7 @@ class CustomNavbar extends React.Component {
                             navbar
                         >
                             <Nav navbar>
-                                {this.state.login ? null : <CustomNavItem attr={{href:'/login', name:'Log in', icon:'icon'}}/>}
+                                {userIsLogged ? null : <CustomNavItem attr={{href:'/login', name:'Log in', icon:'icon'}}/>}
                             </Nav>
                         </Collapse>
                     </Container>
