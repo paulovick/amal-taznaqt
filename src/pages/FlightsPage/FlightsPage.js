@@ -9,7 +9,7 @@ import Datetime from "react-datetime"
 
 class FlightsPage extends Component {
   state = {
-    origin: { id: 'BCN-sky', label: 'Barcelona - El Prat' },
+    origin: 'MAD-sky',
     outboundDays: ["2019-11-10", "2019-11-11", "2019-11-12", "2019-11-13", "2019-11-14", "2019-11-15"],
     outboundFlights: [],
     returnDays: ["2019-11-28", "2019-11-29", "2019-11-30", "2019-12-01"],
@@ -17,14 +17,31 @@ class FlightsPage extends Component {
   }
 
   componentDidMount() {
-    fetchFlights('BCN-sky', 'MA-sky', this.state.outboundDays)
+    this.updateResults(this.state.origin)
+  }
+
+  resetResults = () => {
+    this.setState({
+      outboundFlights: [],
+      returnFlights: []
+    })
+  }
+
+  updateResults = (origin) => {
+    this.setState({ origin })
+    fetchFlights(origin, 'MA-sky', this.state.outboundDays)
       .then(outboundFlights => {
         this.setState({ outboundFlights })
       })
-    fetchFlights('MA-sky', 'BCN-sky', this.state.returnDays)
+    fetchFlights('MA-sky', origin, this.state.returnDays)
       .then(returnFlights => {
         this.setState({ returnFlights })
       })
+  }
+
+  handleOnOriginChange = (newOrigin) => {
+    this.resetResults()
+    this.updateResults(newOrigin)
   }
 
   getCheapestFlight = (flights) => {
@@ -49,7 +66,13 @@ class FlightsPage extends Component {
         <Form className="form-flights">
           <FormGroup>
             <label htmlFor="originSelect" className="outbound-from-label">Salida des de</label>
-            <Input id="originSelect" type="select" className="origin-airport-select">
+            <Input
+              id="originSelect"
+              type="select"
+              className="origin-airport-select"
+              onChange={e => this.handleOnOriginChange(e.target.value)}
+              value={this.state.origin}
+            >
               <option value="BCN-sky">Barcelona - El Prat</option>
               <option value="MAD-sky">Madrid - Barajas</option>
             </Input>

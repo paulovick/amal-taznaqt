@@ -37,6 +37,7 @@ const getFlightsForAirlineAndDay = (airline, day, flights) => {
 
 const FlightsTable = ({ tableKey, days, flights }) => {
   const airlines = getUniqueAirlines(days, flights)
+  console.log(airlines)
 
   return (
     <Card className="flights-table">

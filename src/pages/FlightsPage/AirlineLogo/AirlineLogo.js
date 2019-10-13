@@ -6,6 +6,8 @@ import AirArabiaLogo from './AirArabiaLogo'
 import LaudamotionLogo from './LaudamotionLogo'
 import IberiaLogo from './IberiaLogo'
 import RoyalAirLogo from './RoyalAirLogo'
+import AirEuropaLogo from './AirEuropaLogo'
+import WizzAirLogo from './WizzAirLogo'
 
 import './AirlineLogo.scss'
 
@@ -23,6 +25,10 @@ const getLogoComponent = (airline, props) => {
       return <IberiaLogo {...props} />
     case "Royal Air Maroc":
       return <RoyalAirLogo {...props} />
+    case "Air Europa":
+      return <AirEuropaLogo {...props} />
+    case "Wizz Air":
+      return <WizzAirLogo {...props} />
     default:
       return null
   }
