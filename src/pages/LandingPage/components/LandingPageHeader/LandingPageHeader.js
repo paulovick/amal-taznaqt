@@ -2,9 +2,12 @@ import React from "react";
 
 import { Container } from "reactstrap"
 
+import {CustomNavbar} from '../Navbars/CustomNavbar'
+
 import './LandingPageHeader.scss'
 
-function LandingPageHeader() {
+function LandingPageHeader(props) {
+  console.log(props)
   let pageHeader = React.createRef();
 
   React.useEffect(() => {
@@ -24,6 +27,7 @@ function LandingPageHeader() {
   return (
     <>
       <div className="page-header page-header-small">
+        <CustomNavbar {...props}/>
         <div
           className="page-header-image"
           style={{
