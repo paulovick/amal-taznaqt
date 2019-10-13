@@ -7,7 +7,7 @@
     font-size: 1.2em;
     font-weight: bold;
 
-    .header-airport {
+    .header-airline {
       width: 250px;
       display: flex;
       padding: 0.5em 1em;
@@ -27,6 +27,7 @@
 
     .airline-row {
       display: flex;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 
       .airline {
         width: 250px;
@@ -40,6 +41,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        border-left: 1px solid rgba(0, 0, 0, 0.05);
       }
     }
   }
