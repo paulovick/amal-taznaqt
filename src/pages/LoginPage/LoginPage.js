@@ -100,7 +100,7 @@ function LoginPage() {
                       block
                       className="btn-round"
                       color="info"
-                      href="#pablo"
+
                       onClick={e => e.preventDefault()}
                       size="lg"
                     >
