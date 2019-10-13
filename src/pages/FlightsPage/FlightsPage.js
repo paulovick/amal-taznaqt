@@ -9,7 +9,7 @@ import Datetime from "react-datetime"
 
 class FlightsPage extends Component {
   state = {
-    origin: 'MAD-sky',
+    origin: 'BCN-sky',
     outboundDays: ["2019-11-10", "2019-11-11", "2019-11-12", "2019-11-13", "2019-11-14", "2019-11-15"],
     outboundFlights: [],
     returnDays: ["2019-11-28", "2019-11-29", "2019-11-30", "2019-12-01"],
@@ -75,6 +75,8 @@ class FlightsPage extends Component {
             >
               <option value="BCN-sky">Barcelona - El Prat</option>
               <option value="MAD-sky">Madrid - Barajas</option>
+              <option value="VLC-sky">Valencia - Manises</option>
+              <option value="SVQ-sky">Sevilla</option>
             </Input>
           </FormGroup>
           <div className="dates-container">
